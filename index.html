@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>CLIMATECHANGE.MJ.BSEDIV-A</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteorology & Climate Science - Interactive Study Notes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #0ea5e9;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --glass: rgba(15, 23, 42, 0.7);
+            --border: rgba(148, 163, 184, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(14, 165, 233, 0.1) 0%, transparent 40%);
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-5%, -5%) rotate(5deg); }
+        }
+
+        /* Header */
+        header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border-radius: 9999px;
+            color: var(--text);
+            width: 300px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            width: 350px;
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        /* Navigation */
+        .nav-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            background: rgba(30, 41, 59, 0.5);
+            padding: 0.5rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-tab:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            color: var(--secondary);
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h4 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin: 1.25rem 0 0.75rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--accent);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Definition boxes */
+        .definition-box {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 0.75rem 0.75rem 0;
+        }
+
+        .definition-box strong {
+            color: var(--accent);
+        }
+
+        /* Key term highlights */
+        .key-term {
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--secondary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            cursor: help;
+            position: relative;
+            border-bottom: 1px dotted var(--secondary);
+        }
+
+        .key-term:hover::after {
+            content: attr(data-def);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: var(--text);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            width: 250px;
+            font-size: 0.85rem;
+            z-index: 10;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+            color: var(--text);
+        }
+
+        /* Comparison grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .comparison-card h4 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(6, 182, 212, 0.1));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            z-index: 101;
+            transition: width 0.3s;
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1.25rem;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Print styles */
+        @media print {
+            .nav-tabs, .search-box, .scroll-top, .progress-bar {
+                display: none;
+            }
+            
+            .section {
+                display: block !important;
+                page-break-after: always;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .card {
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .search-box input {
+                width: 200px;
+            }
+            
+            .search-box input:focus {
+                width: 250px;
+            }
+            
+            .nav-tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            table {
+                font-size: 0.85rem;
+            }
+            
+            th, td {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+        <div class="header-content">
+            <h1>🌍 Meteorology & Climate Science</h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search terms, definitions...">
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-container">
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('weather')">Weather Elements</button>
+            <button class="nav-tab" onclick="showSection('winds')">Winds & ITCZ</button>
+            <button class="nav-tab" onclick="showSection('monsoons')">Monsoons</button>
+            <button class="nav-tab" onclick="showSection('climate')">Climate Basics</button>
+            <button class="nav-tab" onclick="showSection('warming')">Global Warming</button>
+            <button class="nav-tab" onclick="showSection('solutions')">Solutions</button>
+            <button class="nav-tab" onclick="showSection('all')">View All</button>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Weather Elements Section -->
+        <section id="weather" class="section active">
+            <div class="card">
+                <h2>🌤️ Weather Elements</h2>
+                <p><strong>Weather:</strong> The state of the <span class="key-term" data-def="The envelope of gases surrounding the Earth">atmosphere</span> at a particular time and place.</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Element</th>
+                                <th>Definition</th>
+                                <th>Key Technical Terms</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Temperature</strong></td>
+                                <td>How hot or cold the air is; measures heat energy in the atmosphere</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Humidity</strong></td>
+                                <td>Amount of <span class="key-term" data-def="Invisible gaseous form of water (H₂O) in the air">water vapor</span> in the air; warm air holds more than cold air</td>
+                                <td><strong>Water vapor:</strong> Invisible gaseous form of water (H₂O) in the air</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cloudiness</strong></td>
+                                <td>How much of the sky is covered by <span class="key-term" data-def="Visible mass of condensed water droplets or ice crystals suspended in the atmosphere">clouds</span>; forms when humid air rises, cools, and <span class="key-term" data-def="Process where water vapor changes into liquid water droplets as air cools">condenses</span></td>
+                                <td><strong>Condensation:</strong> Process where water vapor changes into liquid water droplets as air cools</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Precipitation</strong></td>
+                                <td>Water falling from sky—<span class="key-term" data-def="Liquid water droplets falling from clouds">rain</span>, <span class="key-term" data-def="Frozen crystalline water falling from clouds">snow</span>, <span class="key-term" data-def="Ice pellets formed when rain freezes before hitting ground">sleet</span>, <span class="key-term" data-def="Balls of ice formed in strong updrafts of thunderstorms">hail</span></td>
+                                <td><strong>Sleet:</strong> Ice pellets formed when rain freezes before hitting ground; <strong>Hail:</strong> Balls of ice formed in strong updrafts of thunderstorms</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wind</strong></td>
+                                <td>Air moving from <span class="key-term" data-def="Region where air sinks, creating denser, heavier air">high pressure</span> to <span class="key-term" data-def="Region where air rises, creating lighter, less dense air">low pressure</span>; driven by uneven solar heating and Earth's rotation</td>
+                                <td><strong>High pressure:</strong> Region where air sinks, creating denser, heavier air; <strong>Low pressure:</strong> Region where air rises, creating lighter, less dense air</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pressure</strong> (Atmospheric Pressure)</td>
+                                <td>Weight of air above a point; <span class="key-term" data-def="Region where air sinks, creating denser, heavier air">high pressure</span> usually brings clear weather, <span class="key-term" data-def="Region where air rises, creating lighter, less dense air">low pressure</span> brings storms</td>
+                                <td><strong>Atmospheric pressure:</strong> Force exerted by the weight of the atmosphere above a surface</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="definition-box">
+                    <strong>💡 Connection:</strong> These elements don't exist in isolation. Temperature differences create pressure differences, which create wind. Wind moves moisture (humidity), which forms clouds, which produce precipitation. It's one interconnected system.
+                </div>
+            </div>
+        </section>
+
+        <!-- Winds Section -->
+        <section id="winds" class="section">
+            <div class="card">
+                <h2>💨 Easterlies & ITCZ</h2>
+                
+                <h3>Easterlies</h3>
+                <p><strong>Easterlies:</strong> Prevailing winds blowing from <strong>east to west</strong> (named by origin, not destination).</p>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>🌴 Tropical Easterlies (Trade Winds)</h4>
+                        <ul>
+                            <li>Blow from northeast (Northern Hemisphere) and southeast (Southern Hemisphere)</li>
+                            <li>Located 0°–30° <span class="key-term" data-def="Distance north or south of the equator, measured in degrees">latitude</span></li>
+                            <li>Steady, reliable, generally fair weather</li>
+                            <li>Historically used by sailing ships for commerce</li>
+                        </ul>
+                        <div class="definition-box">
+                            <strong>Trade winds:</strong> Consistent tropical winds historically used by sailing ships for commerce ("trade")<br>
+                            <strong>Latitude:</strong> Distance north or south of the equator, measured in degrees
+                        </div>
+                    </div>
+
+                    <div class="comparison-card">
+                        <h4>❄️ Polar Easterlies</h4>
+                        <ul>
+                            <li>Blow from east in <span class="key-term" data-def="Areas around Earth's North and South Poles, characterized by extreme cold">polar regions</span> (60°–90° latitude)</li>
+                            <li>Cold, dry, less consistent than tropical easterlies</li>
+                            <li>Air flows outward from high pressure at poles toward lower pressure at ~60° latitude</li>
+                        </ul>
+                        <div class="definition-box">
+                            <strong>Polar regions:</strong> Areas around Earth's North and South Poles, characterized by extreme cold
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Intertropical Convergence Zone (ITCZ)</h3>
+                <div class="highlight-box">
+                    <p><strong>ITCZ:</strong> A band near the <span class="key-term" data-def="Imaginary line at 0° latitude, dividing Earth into Northern and Southern Hemispheres">equator</span> where northern and southern <span class="key-term" data-def="Consistent tropical winds historically used by sailing ships">trade winds</span> <span class="key-term" data-def="Coming together of air masses or winds">converge</span>, forcing warm, moist air to <span class="key-term" data-def="Air moving upward; cools and forms clouds">rise</span>, creating a zone of <span class="key-term" data-def="Region where air rises, creating lighter, less dense air">low pressure</span>, towering <span class="key-term" data-def="Visible mass of condensed water droplets or ice crystals suspended in the atmosphere">clouds</span>, heavy <span class="key-term" data-def="Any form of water falling from atmosphere">rainfall</span>, and frequent <span class="key-term" data-def="Storm with thunder, lightning, heavy rain, and sometimes hail or strong winds">thunderstorms</span>.</p>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Characteristic</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nickname</td>
+                                <td>"Rain belt of the tropics"</td>
+                            </tr>
+                            <tr>
+                                <td>Movement</td>
+                                <td>Shifts north and south seasonally with the sun</td>
+                            </tr>
+                            <tr>
+                                <td>Impact</td>
+                                <td>Influences wet or dry seasons and <span class="key-term" data-def="Rotating storm system (hurricane, typhoon, cyclone) forming over tropical waters">tropical cyclone</span> formation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="definition-box">
+                    <strong>Key Terms Summary:</strong><br>
+                    • <strong>Equator:</strong> Imaginary line at 0° latitude dividing Earth into Northern and Southern Hemispheres<br>
+                    • <strong>Convergence:</strong> Coming together of air masses or winds<br>
+                    • <strong>Rising air (updraft):</strong> Air moving upward; cools and forms clouds<br>
+                    • <strong>Tropical cyclone:</strong> Rotating storm system forming over tropical waters
+                </div>
+            </div>
+        </section>
+
+        <!-- Monsoons Section -->
+        <section id="monsoons" class="section">
+            <div class="card">
+                <h2>🌧️ Monsoons of the Philippines</h2>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card" style="border-top: 4px solid #06b6d4;">
+                        <h4>Amihan (Northeast Monsoon)</h4>
+                        <ul>
+                            <li><strong>Duration:</strong> November to May</li>
+                            <li><strong>Origin:</strong> <span class="key-term" data-def="Vast region in northern Asia known for extremely cold winter temperatures">Siberia</span> and China</li>
+                            <li><strong>Characteristics:</strong> Cool, dry winds</li>
+                            <li><strong>Translation:</strong> "North wind"</li>
+                            <li><strong>Weather:</strong> Cooler, pleasant, less rain</li>
+                            <li><strong>East coasts:</strong> <span class="key-term" data-def="Very light, fine precipitation consisting of small water droplets">Drizzle</span></li>
+                            <li><strong>Inland:</strong> Drier conditions (especially Christmas season)</li>
+                        </ul>
+                        <div class="definition-box">
+                            <strong>Monsoon:</strong> Seasonal reversal of winds bringing distinct wet and dry periods<br>
+                            <strong>Drizzle:</strong> Very light, fine precipitation consisting of small water droplets<br>
+                            <strong>Siberia:</strong> Vast region in northern Asia known for extremely cold winter temperatures
+                        </div>
+                    </div>
+
+                    <div class="comparison-card" style="border-top: 4px solid #2563eb;">
+                        <h4>Habagat (Southwest Monsoon)</h4>
+                        <ul>
+                            <li><strong>Duration:</strong> June to October</li>
+                            <li><strong>Characteristics:</strong> Heavy <span class="key-term" data-def="Any form of water falling from atmosphere">rains</span>, <span class="key-term" data-def="Storm with thunder, lightning, heavy rain, and sometimes hail or strong winds">thunderstorms</span>, humid weather</li>
+                            <li><strong>Dangers:</strong> <span class="key-term" data-def="Overflow of water onto normally dry land">Floods</span> and <span class="key-term" data-def="Movement of rock, earth, or debris down a slope">landslides</span></li>
+                            <li><strong>Enhancement:</strong> Often worsened by <span class="key-term" data-def="Powerful tropical cyclone in the western Pacific Ocean">typhoons</span></li>
+                            <li><strong>Opposite:</strong> Cooler, drier amihan</li>
+                        </ul>
+                        <div class="definition-box">
+                            <strong>Thunderstorm:</strong> Storm with thunder, lightning, heavy rain, and sometimes hail or strong winds<br>
+                            <strong>Flood:</strong> Overflow of water onto normally dry land<br>
+                            <strong>Landslide:</strong> Movement of rock, earth, or debris down a slope<br>
+                            <strong>Typhoon:</strong> Powerful tropical cyclone in the western Pacific Ocean
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Amihan</th>
+                                <th>Habagat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Direction</strong></td>
+                                <td>Northeast</td>
+                                <td>Southwest</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Feel</strong></td>
+                                <td>Cool, dry, pleasant</td>
+                                <td>Hot, humid, wet</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rain</strong></td>
+                                <td>Light drizzle, mostly dry</td>
+                                <td>Heavy rain, storms</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Problems</strong></td>
+                                <td>Minimal</td>
+                                <td>Floods, landslides</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Season</strong></td>
+                                <td>November–May</td>
+                                <td>June–October</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Climate Basics Section -->
+        <section id="climate" class="section">
+            <div class="card">
+                <h2>🌡️ Climate Fundamentals</h2>
+
+                <h3>What is Climate?</h3>
+                <div class="highlight-box">
+                    <p><strong>Climate:</strong> The long-term effect of <span class="key-term" data-def="Energy emitted by the sun, traveling as electromagnetic waves">solar radiation</span> and <span class="key-term" data-def="Earth's spin on its axis">rotating</span> Earth's <span class="key-term" data-def="Different types of terrain: land, water, ice, vegetation">varied surface</span> on the <span class="key-term" data-def="The envelope of gases surrounding the Earth">atmosphere</span>. Understood most easily in terms of <span class="key-term" data-def="Mean value calculated over one full year">annual</span> or <span class="key-term" data-def="Mean value calculated over a specific season">seasonal averages</span> of <span class="key-term" data-def="How hot or cold the air is">temperature</span> and <span class="key-term" data-def="Any form of water falling from atmosphere">precipitation</span>.</p>
+                </div>
+
+                <div class="definition-box">
+                    <strong>Key Terms Breakdown:</strong><br>
+                    • <strong>Solar radiation:</strong> Energy emitted by the sun, traveling as electromagnetic waves<br>
+                    • <strong>Annual average:</strong> Mean value calculated over one full year<br>
+                    • <strong>Seasonal average:</strong> Mean value calculated over a specific season (e.g., summer, winter)
+                </div>
+
+                <h3>Greenhouse Effect</h3>
+                <p>Natural process where <span class="key-term" data-def="Gases that absorb and emit infrared radiation, trapping heat">greenhouse gases</span> in the <span class="key-term" data-def="The envelope of gases surrounding the Earth">atmosphere</span> trap <span class="key-term" data-def="Thermal energy">heat</span> from <span class="key-term" data-def="Energy emitted by the sun">solar radiation</span>.</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>Process</th>
+                                <th>Key Terms</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><span class="key-term" data-def="Energy emitted by the sun">Solar radiation</span> enters the atmosphere</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Earth absorbs it and <span class="key-term" data-def="Release absorbed energy again">re-radiates</span> it as <span class="key-term" data-def="Heat energy emitted by warm objects; invisible to human eyes">infrared radiation</span> (heat)</td>
+                                <td><strong>Re-radiate:</strong> Release absorbed energy again; <strong>Infrared radiation:</strong> Heat energy emitted by warm objects</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Gases like <span class="key-term" data-def="Colorless gas produced by burning fossil fuels; major greenhouse gas">CO₂</span>, <span class="key-term" data-def="Potent greenhouse gas produced by decomposition and livestock">methane</span>, and <span class="key-term" data-def="Invisible gaseous water in air">water vapor</span> absorb this heat</td>
+                                <td><strong>CO₂:</strong> Carbon dioxide; <strong>Methane (CH₄):</strong> Potent greenhouse gas</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>They <span class="key-term" data-def="Release absorbed energy in all directions">re-emit</span> it in all directions—some escapes to space, some returns to Earth</td>
+                                <td><strong>Re-emit:</strong> Release absorbed energy in all directions</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Result: Planet stays warmer than it would be otherwise</td>
+                                <td>Essential for life, but human activities are <span class="key-term" data-def="Intensifying beyond natural levels">enhancing</span> it excessively</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="definition-box">
+                    <strong>Without the greenhouse effect:</strong> Earth would be too cold for life.<br>
+                    <strong>Current problem:</strong> Human activities are <strong>enhancing</strong> (intensifying) it beyond natural levels.
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Warming Section -->
+        <section id="warming" class="section">
+            <div class="card">
+                <h2>🔥 Global Warming & Climate Change</h2>
+
+                <h3>Global Warming</h3>
+                <p><strong>Global warming:</strong> The <span class="key-term" data-def="Extended period of time">long-term</span> <span class="key-term" data-def="Rise in amount or degree">increase</span> in Earth's average <span class="key-term" data-def="Outer boundary or exterior">surface temperature</span>. Primarily <span class="key-term" data-def="Caused by human activities">anthropogenic</span>—caused by <span class="key-term" data-def="Release of gases that trap heat">greenhouse gas emissions</span> from burning <span class="key-term" data-def="Energy sources from ancient organic matter: coal, oil, natural gas">fossil fuels</span>, <span class="key-term" data-def="Clearing of forests by human activity">deforestation</span>, and <span class="key-term" data-def="Farming and cultivation of land">agriculture</span>.</p>
+
+                <div class="highlight-box">
+                    <h4>Key Metrics</h4>
+                    <p><strong>Global mean surface temperature (GMST):</strong> <span class="key-term" data-def="Average temperature of Earth's land and ocean surfaces worldwide">Average temperature</span> has risen ~1.1°C since <span class="key-term" data-def="Period before ~1850, used as baseline">pre-industrial times</span>.</p>
+                    <p><strong>Important distinction:</strong> A cold day doesn't disprove it. It's about the <span class="key-term" data-def="Long-term pattern over time">trend</span> over decades.</p>
+                </div>
+
+                <div class="definition-box">
+                    <strong>Anthropogenic:</strong> Caused by human activities<br>
+                    <strong>Fossil fuels:</strong> Energy sources formed from ancient organic matter (coal, oil, natural gas)<br>
+                    <strong>Deforestation:</strong> Clearing or thinning of forests by human activity<br>
+                    <strong>Pre-industrial times:</strong> Period before ~1850, used as climate baseline<br>
+                    <strong>Trend:</strong> Long-term pattern or direction of change over time
+                </div>
+
+                <h3>Climate Change</h3>
+                <p><strong>Climate change:</strong> <span class="key-term" data-def="Long-term temperature increase">Global warming</span> plus all its <span class="key-term" data-def="Secondary consequences from initial cause">downstream effects</span>:</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>System</th>
+                                <th>Effect</th>
+                                <th>Technical Terms Defined</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Cryosphere</strong></td>
+                                <td><span class="key-term" data-def="Shrinking of glaciers">Glacial retreat</span>, <span class="key-term" data-def="Melting of permanently frozen ground">permafrost thaw</span>, <span class="key-term" data-def="Ice at North and South Poles">polar ice</span> loss</td>
+                                <td><strong>Cryosphere:</strong> All frozen parts of Earth's surface; <strong>Glacial retreat:</strong> Shrinking of glaciers; <strong>Permafrost:</strong> Permanently frozen ground</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hydrological cycle</strong></td>
+                                <td><span class="key-term" data-def="Lack of sufficient water resources">Water scarcity</span>, intensified <span class="key-term" data-def="Water falling from sky">precipitation</span>, <span class="key-term" data-def="Extended period of deficient rainfall">droughts</span></td>
+                                <td><strong>Hydrological cycle:</strong> Continuous movement of water in Earth system; <strong>Precipitation:</strong> Any water falling from atmosphere</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Biosphere</strong></td>
+                                <td><span class="key-term" data-def="Movement of species to new areas">Range shifts</span>, <span class="key-term" data-def="Timing of seasonal biological events">phenology</span> changes, <span class="key-term" data-def="Stress response where corals expel algae">coral bleaching</span></td>
+                                <td><strong>Biosphere:</strong> All living organisms on Earth; <strong>Phenology:</strong> Timing of seasonal biological events</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Human systems</strong></td>
+                                <td><span class="key-term" data-def="Farming disruption">Agricultural</span> disruption, <span class="key-term" data-def="Harm from excessive heat">heat stress</span>, <span class="key-term" data-def="Movement due to environmental changes">climate migration</span>, <span class="key-term" data-def="Financial costs">economic</span> costs</td>
+                                <td><strong>Agricultural:</strong> Related to farming; <strong>Heat stress:</strong> Health harm from excessive heat</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Extreme events</strong></td>
+                                <td>Stronger <span class="key-term" data-def="Large tropical storms">hurricanes</span>, <span class="key-term" data-def="Prolonged periods of hot weather">heatwaves</span>, <span class="key-term" data-def="Uncontrolled fires in natural areas">wildfires</span></td>
+                                <td><strong>Hurricanes:</strong> Large tropical storms with strong winds; <strong>Heatwaves:</strong> Prolonged excessive heat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Scientific Basis</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Evidence</th>
+                                <th>What It Shows</th>
+                                <th>Technical Terms</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Ice cores</strong></td>
+                                <td>Ancient <span class="key-term" data-def="Gases in the atmosphere">atmospheric composition</span>, past <span class="key-term" data-def="How hot or cold">temperature</span></td>
+                                <td><strong>Ice cores:</strong> Cylinders of ice drilled from glaciers containing trapped air bubbles from thousands of years ago</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Satellite data</strong></td>
+                                <td><span class="key-term" data-def="Difference between incoming and outgoing energy">Radiative forcing</span>, ice melt, <span class="key-term" data-def="Height of ocean surface">sea level</span></td>
+                                <td><strong>Radiative forcing:</strong> Difference between incoming solar energy and outgoing infrared energy</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Climate models</strong></td>
+                                <td><span class="key-term" data-def="Estimates of future conditions">Projections</span> match observations when human <span class="key-term" data-def="Release of substances">emissions</span> included</td>
+                                <td><strong>Projections:</strong> Estimates of future conditions based on current data and mathematical models</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Paleoclimate data</strong></td>
+                                <td>Past <span class="key-term" data-def="Amount of warming from CO₂ doubling">climate sensitivity</span> to <span class="key-term" data-def="Carbon dioxide">CO₂</span></td>
+                                <td><strong>Paleoclimate:</strong> Climate of the distant past; <strong>Climate sensitivity:</strong> Warming expected from doubling of atmospheric CO₂</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Scientific Consensus</h4>
+                    <p><strong>IPCC (<span class="key-term" data-def="Intergovernmental Panel on Climate Change">Intergovernmental Panel on Climate Change</span>):</strong> International body assessing climate science. Thousands of scientists agree the <span class="key-term" data-def="Clear, detectable pattern">signal</span> is clear and <span class="key-term" data-def="Able to be assigned to a specific cause">attributable</span> to human activity.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions Section -->
+        <section id="solutions" class="section">
+            <div class="card">
+                <h2>🌱 Solutions & Actions</h2>
+
+                <h3>Reducing Carbon Footprint</h3>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sector</th>
+                                <th>Actions</th>
+                                <th>Technical Terms Defined</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Energy</strong></td>
+                                <td>Switch to <span class="key-term" data-def="Energy sources naturally replenished: sun, wind, water">renewables</span> (solar, wind), improve <span class="key-term" data-def="Using less energy for same service">efficiency</span>, <span class="key-term" data-def="Converting systems to use electricity">electrify</span> transport</td>
+                                <td><strong>Renewables:</strong> Energy sources naturally replenished; <strong>Efficiency:</strong> Using less energy for same service; <strong>Electrification:</strong> Converting to electricity use</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Transportation</strong></td>
+                                <td><span class="key-term" data-def="Human-powered movement">Active transport</span> (walk, bike), <span class="key-term" data-def="Shared passenger systems">public transit</span>, <span class="key-term" data-def="Vehicles powered by electricity">EVs</span>, reduce <span class="key-term" data-def="Flying in airplanes">air travel</span></td>
+                                <td><strong>Active transport:</strong> Human-powered movement; <strong>EVs:</strong> Electric vehicles; <strong>Public transit:</strong> Shared transportation systems</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Consumption</strong></td>
+                                <td><span class="key-term" data-def="Waste management hierarchy">Reduce, reuse, recycle</span>, buy <span class="key-term" data-def="Produced nearby">local</span>, minimize waste</td>
+                                <td><strong>Local:</strong> Produced nearby, reducing transportation emissions</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Diet</strong></td>
+                                <td>Reduce <span class="key-term" data-def="Animal flesh for food">meat</span> (especially <span class="key-term" data-def="Hoofed fermenting animals">ruminant</span>—high <span class="key-term" data-def="Potent greenhouse gas CH₄">methane</span>)</td>
+                                <td><strong>Ruminant:</strong> Hoofed animals (cattle, sheep) that produce methane through digestion</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Land use</strong></td>
+                                <td><span class="key-term" data-def="Replanting trees in forest areas">Reforestation</span>, <span class="key-term" data-def="Creating new forests">afforestation</span>, protect <span class="key-term" data-def="Natural reservoirs absorbing carbon">carbon sinks</span></td>
+                                <td><strong>Reforestation:</strong> Replanting trees in previously forested areas; <strong>Afforestation:</strong> Creating new forests; <strong>Carbon sinks:</strong> Natural reservoirs that absorb more carbon than they release</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Policy</strong></td>
+                                <td>Support <span class="key-term" data-def="Economic cost assigned to carbon emissions">carbon pricing</span>, <span class="key-term" data-def="Rules enforced by authority">regulations</span>, <span class="key-term" data-def="2015 international climate treaty">Paris Agreement</span></td>
+                                <td><strong>Carbon pricing:</strong> Economic cost assigned to carbon emissions (taxes or cap-and-trade); <strong>Paris Agreement:</strong> 2015 international treaty on climate change</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Adaptation Strategies</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>🏗️ Resilient Infrastructure</h4>
+                        <p>Building systems that can <span class="key-term" data-def="Withstand and recover from stresses">withstand and recover</span> from climate shocks.</p>
+                        <div class="definition-box">
+                            <strong>Resilient:</strong> Able to withstand and recover from shocks and stresses
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>⚠️ Early Warning Systems</h4>
+                        <p>Networks <span class="key-term" data-def="Monitoring and alerting before disasters">monitoring hazards</span> and alerting populations before disasters strike.</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>🌾 Sustainable Agriculture</h4>
+                        <p>Farming meeting current needs without <span class="key-term" data-def="Compromising future generations">compromising future generations'</span> ability to meet theirs.</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>💧 Water Management</h4>
+                        <p><span class="key-term" data-def="Planning and distributing water">Planning, developing, distributing</span>, and managing water resources.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(6, 182, 212, 0.2));">
+                    <h4>Why Every Action Matters</h4>
+                    <p>Every <span class="key-term" data-def="1,000 kg metric unit">ton of CO₂</span> not emitted helps. <span class="key-term" data-def="Building up over time">Greenhouse gases are cumulative</span>—every reduction <span class="key-term" data-def="Postponing warming">delays</span> and <span class="key-term" data-def="Lowering peak temperature">reduces peak warming</span>.</p>
+                    <p>We have a limited <span class="key-term" data-def="Allowed emissions to stay below target">carbon budget</span> to stay below <span class="key-term" data-def="Temperature limit targets">1.5°C or 2°C</span>. Every choice affects that budget.</p>
+                </div>
+
+                <div class="definition-box">
+                    <strong>Carbon budget:</strong> Total amount of CO₂ emissions allowed to keep warming below specific targets<br>
+                    <strong>1.5°C / 2°C:</strong> Temperature targets set by Paris Agreement to limit dangerous climate impacts<br>
+                    <strong>Cumulative:</strong> Building up gradually over time; greenhouse gases accumulate in the atmosphere
+                </div>
+            </div>
+        </section>
+
+        <!-- View All Section -->
+        <section id="all" class="section">
+            <div style="text-align: center; padding: 3rem;">
+                <h2>📚 Complete Study Notes</h2>
+                <p>All sections are displayed above. Use the navigation tabs to explore specific topics.</p>
+                <button onclick="showSection('weather')" class="nav-tab" style="margin-top: 2rem; display: inline-block;">Start from Beginning</button>
+            </div>
+        </section>
+    </main>
+
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Tab navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected section
+            if (sectionId === 'all') {
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.add('active');
+                    section.style.display = 'block';
+                });
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    if (tab.textContent.includes('View All')) tab.classList.add('active');
+                });
+            } else {
+                document.getElementById(sectionId).classList.add('active');
+                // Activate corresponding tab
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    if (tab.getAttribute('onclick').includes(sectionId)) {
+                        tab.classList.add('active');
+                    }
+                });
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const sections = document.querySelectorAll('.section');
+            
+            if (searchTerm === '') {
+                // Reset to default view
+                showSection('weather');
+                return;
+            }
+            
+            // Show all sections for search
+            sections.forEach(section => {
+                section.classList.add('active');
+                section.style.display = 'block';
+                
+                // Highlight matching text
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    section.style.opacity = '1';
+                } else {
+                    section.style.opacity = '0.3';
+                }
+            });
+        });
+
+        // Progress bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+            
+            // Scroll to top button
+            const scrollTop = document.getElementById('scrollTop');
+            if (winScroll > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
